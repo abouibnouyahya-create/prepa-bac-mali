@@ -1,0 +1,16 @@
+{
+    "name": "Prépa-Bac Mali",
+    "short_name": "Prépa-Bac",
+    "description": "L'application pour réussir son Bac au Mali",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f4f7fa",
+    "theme_color": "#0f8a3c",
+    "icons": [
+        {
+            "src": "images/icone-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}

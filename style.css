@@ -1,0 +1,280 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fa;
+    color: #222;
+    min-height: 100vh;
+}
+
+/* ===== EN-TÊTE ===== */
+header {
+    background: linear-gradient(135deg, #0f8a3c, #f5c518);
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+.sous-titre {
+    font-size: 1rem;
+    opacity: 0.95;
+    margin-top: 5px;
+}
+
+/* ===== CONTENU PRINCIPAL ===== */
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px 40px;
+}
+
+main h2 {
+    margin: 20px 0 15px;
+    color: #0f8a3c;
+}
+
+/* ===== GRILLE DES THÈMES ===== */
+.grille-themes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.carte-theme {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.carte-theme:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.carte-theme.desactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.carte-theme .icone {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.carte-theme h3 {
+    color: #0f8a3c;
+    margin-bottom: 8px;
+}
+
+/* ===== ONGLETS ===== */
+.onglets {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.onglet {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #0f8a3c;
+    background: white;
+    color: #0f8a3c;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.onglet.actif {
+    background: #0f8a3c;
+    color: white;
+}
+
+.btn-retour {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+/* ===== CONTENU (cours + quiz) ===== */
+.contenu {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    line-height: 1.7;
+}
+
+.contenu h3 {
+    color: #0f8a3c;
+    margin: 20px 0 10px;
+}
+
+.contenu h4 {
+    color: #444;
+    margin: 15px 0 8px;
+}
+
+.contenu p {
+    margin-bottom: 12px;
+}
+
+.contenu ul {
+    margin: 10px 0 15px 25px;
+}
+
+.contenu li {
+    margin-bottom: 6px;
+}
+
+/* ===== UTILITAIRE ===== */
+.cache {
+    display: none;
+}
+
+/* ===== QUIZ ===== */
+.question-quiz {
+    background: #f9f9f9;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 5px solid #0f8a3c;
+}
+
+.question-quiz h4 {
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.reponse {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 15px;
+    margin: 6px 0;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.15s;
+}
+
+.reponse:hover {
+    border-color: #0f8a3c;
+}
+
+.reponse.correcte {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.reponse.fausse {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.resultat-quiz {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fffbe6;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px dashed #f5c518;
+}
+
+/* ===== CHRONOMÈTRE ===== */
+.chrono {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    float: right;
+}
+
+.chrono.urgence {
+    color: #dc3545;
+    /* Rouge */
+    animation: clignote 1s infinite;
+}
+
+@keyframes clignote {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* ===== ENCADRÉS DE TEXTE (Zooms) ===== */
+.encadre-texte {
+    background-color: #f0f7f4;
+    border-left: 5px solid #0f8a3c;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.encadre-texte h4 {
+    color: #0f8a3c;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.encadre-texte p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.encadre-texte em {
+    color: #555;
+    font-style: italic;
+}
+
+/* Style pour les textes littéraires */
+.encadre-texte p[style*="font-style: italic"] {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px dashed #ccc;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
