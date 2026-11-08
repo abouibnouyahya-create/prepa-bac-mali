@@ -15,7 +15,6 @@ let indexFlashcardActuel = 0;
 // ==================================================
 function ouvrirTheme(idTheme) {
     themeActif = idTheme;
-
     document.getElementById('accueil').classList.add('cache');
     document.getElementById('page-theme').classList.remove('cache');
 
@@ -31,8 +30,22 @@ function ouvrirTheme(idTheme) {
     window.scrollTo(0, 0);
 }
 
+function ouvrirOutil(idOutil) {
+    document.getElementById('accueil').classList.add('cache');
+    document.getElementById('page-outil').classList.remove('cache');
+    document.getElementById('contenu-outil').innerHTML = '';
+
+    if (idOutil === 'methode') {
+        afficherMethode();
+    } else if (idOutil === 'flashcards') {
+        afficherFlashcards();
+    }
+    window.scrollTo(0, 0);
+}
+
 function retourAccueil() {
     document.getElementById('page-theme').classList.add('cache');
+    document.getElementById('page-outil').classList.add('cache');
     document.getElementById('accueil').classList.remove('cache');
 
     if (timerInterval) clearInterval(timerInterval);
@@ -47,8 +60,6 @@ function afficherOnglet(nom) {
     document.getElementById('contenu-cours').classList.add('cache');
     document.getElementById('contenu-quiz').classList.add('cache');
     document.getElementById('contenu-citations').classList.add('cache');
-    document.getElementById('contenu-methode').classList.add('cache');
-    document.getElementById('contenu-flashcards').classList.add('cache');
 
     if (timerInterval) clearInterval(timerInterval);
 
@@ -63,14 +74,6 @@ function afficherOnglet(nom) {
         boutons[2].classList.add('actif');
         document.getElementById('contenu-citations').classList.remove('cache');
         afficherCitations();
-    } else if (nom === 'methode') {
-        boutons[3].classList.add('actif');
-        document.getElementById('contenu-methode').classList.remove('cache');
-        afficherMethode();
-    } else if (nom === 'flashcards') {
-        boutons[4].classList.add('actif');
-        document.getElementById('contenu-flashcards').classList.remove('cache');
-        afficherFlashcards();
     }
 }
 
@@ -98,12 +101,14 @@ function afficherCitations() {
 
     if (themeActif === 'travail') {
         html += '<h3>💬 Fiche de citations : Le Travail</h3>';
+
         html += '<h4>Facette 1 : Le travail libérateur</h4>';
         html += '<ul>';
         html += '<li><em>« Que le travail est un trésor. »</em> — La Fontaine, <em>Le Laboureur et ses Enfants</em></li>';
         html += '<li><em>« Vous chantiez ? j\'en suis fort aise : / Eh bien ! dansez maintenant. »</em> — La Fontaine, <em>La Cigale et la Fourmi</em></li>';
         html += '<li><em>« Pour le moment, tu n\'as qu\'un seul devoir, étudier. »</em> — Bernard Dadié, <em>Climbié</em></li>';
         html += '</ul>';
+
         html += '<h4>Facette 2 : Le travail aliénant</h4>';
         html += '<ul>';
         html += '<li><em>« Travail mauvais qui prend l\'âge tendre en sa serre, / (…) / Qui se sert d\'un enfant ainsi que d\'un outil ! »</em> — Victor Hugo, <em>Melancholia</em></li>';
@@ -112,6 +117,7 @@ function afficherCitations() {
         html += '</ul>';
     } else {
         html += '<h3>💬 Fiche de citations : Le Renouveau poétique</h3>';
+
         html += '<h4>La modernité (Apollinaire)</h4>';
         html += '<ul>';
         html += '<li><em>« Tu as fait de douloureux et de joyeux voyages / Avant de t\'apercevoir du mensonge et de l\'âge »</em> — Apollinaire, <em>Zone</em> (Le vers libre et le bilan de vie).</li>';
@@ -119,6 +125,7 @@ function afficherCitations() {
         html += '<li><em>« Bergère ô tour Eiffel le troupeau des ponts bêle ce matin »</em> — Apollinaire, <em>Zone</em> (La ville moderne et la surprise poétique).</li>';
         html += '<li><em>« Les jours s\'en vont je demeure »</em> — Apollinaire, <em>Le Pont Mirabeau</em> (L\'immobilité face au temps).</li>';
         html += '</ul>';
+
         html += '<h4>Les procédés et la forme</h4>';
         html += '<ul>';
         html += '<li><em>« Vienne la nuit sonne l\'heure / Les jours s\'en vont je demeure »</em> — Apollinaire, <em>Le Pont Mirabeau</em> (Exemple parfait d\'anaphore / refrain).</li>';
@@ -133,26 +140,50 @@ function afficherCitations() {
 // 4. AFFICHER LA MÉTHODE
 // ==================================================
 function afficherMethode() {
-    const container = document.getElementById('contenu-methode');
+    const container = document.getElementById('contenu-outil');
 
     let html = `
-    <h3>📝 Fiches de méthode pour le Bac</h3>
-    <p>Voici les étapes clés pour réussir tes épreuves écrites.</p>
+    <h3>📝 Les fiches de méthode du Bac</h3>
+    <p>Pour réussir l'épreuve de français, la forme compte autant que le fond. Voici les guides complets.</p>
 
     <div class="encadre-texte">
       <h4>1. La Dissertation littéraire</h4>
-      <p><strong>Étape 1 : L'analyse du sujet.</strong> Repère les mots-clés, la problématique et le type de sujet (citation, question directe).</p>
-      <p><strong>Étape 2 : Le plan.</strong> Généralement en 3 parties (Thèse, Antithèse, Synthèse) ou 2 parties (Constat, Analyse). Chaque partie doit contenir 2 ou 3 sous-parties avec des exemples (références aux œuvres).</p>
-      <p><strong>Étape 3 : L'introduction.</strong> Amorce, présentation du sujet, problématique, annonce du plan.</p>
-      <p><strong>Étape 4 : La conclusion.</strong> Bilan, réponse à la problématique, ouverture.</p>
+      <p><strong>Objectif :</strong> Répondre à une question ou discuter une citation en s'appuyant sur des œuvres étudiées.</p>
+      <ul>
+        <li><strong>L'introduction (1/4 du temps) :</strong> Amorce (contexte littéraire), Présentation du sujet, Problématique (la question centrale), Annonce du plan.</li>
+        <li><strong>Le développement (2/4 du temps) :</strong> Idéalement 2 ou 3 grandes parties. Chaque partie contient 2 ou 3 paragraphes argumentés (Argument -> Exemple tiré d'une œuvre -> Analyse).</li>
+        <li><strong>La conclusion (1/4 du temps) :</strong> Bilan des idées, Réponse claire à la problématique, Ouverture (vers un autre thème ou une autre œuvre).</li>
+      </ul>
+      <p><em>💡 Astuce :</em> Utilise des connecteurs logiques (D'abord, Ensuite, Enfin, Cependant, Par ailleurs, En conclusion).</p>
     </div>
 
     <div class="encadre-texte">
       <h4>2. Le Commentaire Composé</h4>
-      <p><strong>Étape 1 : Lecture attentive.</strong> Note tes impressions, le thème, le registre, la forme du texte (vers/prose).</p>
-      <p><strong>Étape 2 : La problématique.</strong> Définis l'angle d'attaque (ex: "Comment l'auteur exprime-t-il la révolte ?").</p>
-      <p><strong>Étape 3 : Le plan.</strong> 2 ou 3 axes de lecture (ex: Axe 1 : La description de la misère, Axe 2 : L'appel à la révolte). Appuie chaque argument avec une citation précise du texte et un procédé d'écriture.</p>
-      <p><strong>Étape 4 : L'introduction et la conclusion.</strong> Les mêmes règles que pour la dissertation.</p>
+      <p><strong>Objectif :</strong> Analyser un texte littéraire pour montrer comment il est construit et ce qu'il signifie.</p>
+      <ul>
+        <li><strong>L'introduction :</strong> Présentation de l'auteur, du texte, du thème, de la forme (poème, roman...), Problématique (ex: "Comment l'auteur dénonce-t-il la guerre ?"), Annonce des axes de lecture.</li>
+        <li><strong>Le développement (2 ou 3 axes) :</strong> Chaque axe est une grande idée. Dans chaque axe, on cite le texte (guillemets) et on nomme le procédé d'écriture (métaphore, anaphore, rythme...) pour l'analyser.</li>
+        <li><strong>La conclusion :</strong> Bilan des analyses, Réponse à la problématique, Ouverture.</li>
+      </ul>
+      <p><em>💡 Astuce :</em> Ne raconte jamais l'histoire (pas de paraphrase). Analyse toujours les mots exacts de l'auteur.</p>
+    </div>
+
+    <div class="encadre-texte">
+      <h4>3. Les connecteurs logiques indispensables</h4>
+      <p><strong>Pour ajouter :</strong> De plus, Par ailleurs, En outre, Également.</p>
+      <p><strong>Pour opposer :</strong> Cependant, Toutefois, Néanmoins, En revanche, Or.</p>
+      <p><strong>Pour conclure :</strong> En définitive, Pour conclure, En somme, Finalement.</p>
+      <p><strong>Pour illustrer :</strong> Par exemple, Comme en témoigne, Ainsi que le montre.</p>
+    </div>
+
+    <div class="encadre-texte">
+      <h4>4. Gérer son temps le jour de l'épreuve (4 heures)</h4>
+      <ul>
+        <li><strong>30 min :</strong> Lecture du sujet, analyse des textes, brouillon des idées.</li>
+        <li><strong>30 min :</strong> Élaboration du plan détaillé au brouillon.</li>
+        <li><strong>2h30 :</strong> Rédaction au propre (Introduction, Développement, Conclusion).</li>
+        <li><strong>30 min :</strong> Relecture (orthographe, syntaxe, clarté).</li>
+      </ul>
     </div>
   `;
     container.innerHTML = html;
@@ -162,32 +193,25 @@ function afficherMethode() {
 // 5. AFFICHER LES FLASHCARDS
 // ==================================================
 function afficherFlashcards() {
-    const container = document.getElementById('contenu-flashcards');
-
-    if (themeActif === 'travail') {
-        flashcardsData = [
-            { recto: "Auteur de 'Melancholia'", verso: "Victor Hugo" },
-            { recto: "Auteur de 'Germinal'", verso: "Émile Zola" },
-            { recto: "Auteur ivoirien de 'Climbié'", verso: "Bernard Dadié" },
-            { recto: "Auteur du 'Laboureur et ses Enfants'", verso: "Jean de La Fontaine" },
-            { recto: "Étymologie du mot travail", verso: "Tripalium (instrument de torture)" }
-        ];
-    } else {
-        flashcardsData = [
-            { recto: "Auteur de 'Alcools'", verso: "Guillaume Apollinaire" },
-            { recto: "Auteur de 'La Prose du Transsibérien'", verso: "Blaise Cendrars" },
-            { recto: "Qu'est-ce qu'un calligramme ?", verso: "Un poème en forme de dessin" },
-            { recto: "Mouvement dont Apollinaire est le précurseur", verso: "Le Surréalisme" },
-            { recto: "Refrain du 'Pont Mirabeau'", verso: "Vienne la nuit sonne l'heure / Les jours s'en vont je demeure" }
-        ];
-    }
+    flashcardsData = [
+        { recto: "Auteur de 'Alcools' et 'Calligrammes'", verso: "Guillaume Apollinaire" },
+        { recto: "Mouvement littéraire dont Apollinaire est le précurseur", verso: "Le Surréalisme" },
+        { recto: "Qu'est-ce qu'un calligramme ?", verso: "Un poème dont les mots forment un dessin" },
+        { recto: "Refrain célèbre du 'Pont Mirabeau'", verso: "Vienne la nuit sonne l'heure / Les jours s'en vont je demeure" },
+        { recto: "Auteur de 'La Prose du Transsibérien'", verso: "Blaise Cendrars" },
+        { recto: "Auteur de 'Melancholia' (dénonciation du travail des enfants)", verso: "Victor Hugo" },
+        { recto: "Auteur de 'Germinal'", verso: "Émile Zola" },
+        { recto: "Auteur ivoirien de 'Climbié'", verso: "Bernard Dadié" },
+        { recto: "Auteur du 'Laboureur et ses Enfants'", verso: "Jean de La Fontaine" },
+        { recto: "Étymologie du mot 'travail'", verso: "Tripalium (instrument de torture)" }
+    ];
 
     indexFlashcardActuel = 0;
     afficherCarteActuelle();
 }
 
 function afficherCarteActuelle() {
-    const container = document.getElementById('contenu-flashcards');
+    const container = document.getElementById('contenu-outil');
     const carte = flashcardsData[indexFlashcardActuel];
 
     let html = `<h3>🃏 Flashcards : Mémorise l'essentiel</h3>`;
@@ -536,6 +560,7 @@ function lancerChrono() {
 
     timerInterval = setInterval(() => {
         tempsRestant--;
+
         const minutes = Math.floor(tempsRestant / 60);
         const secondes = tempsRestant % 60;
         const affichage = `⏱️ ${String(Math.max(0, minutes)).padStart(2, '0')}:${String(Math.max(0, secondes)).padStart(2, '0')}`;
