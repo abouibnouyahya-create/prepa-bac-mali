@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prépa-Bac Mali</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Configuration PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f8a3c">
+</head>
+
+<body>
+
+    <!-- En-tête -->
+    <header>
+        <h1>📚 Prépa-Bac</h1>
+        <p class="sous-titre">Réussis ton Bac au Mali</p>
+
+        <!-- Bouton Mode Sombre -->
+        <button id="btn-mode-sombre" onclick="toggleModeSombre()" title="Mode Sombre">🌙</button>
+    </header>
+
+    <!-- Page d'accueil -->
+    <main id="accueil">
+        <h2>Choisis un thème</h2>
+
+        <!-- Zone d'affichage du record -->
+        <div id="affichage-record"
+            style="text-align: center; margin-bottom: 20px; font-weight: bold; color: #0f8a3c; font-size: 1.1rem;">
+        </div>
+
+        <div class="grille-themes">
+
+            <div class="carte-theme" onclick="ouvrirTheme('renouveau-poetique')">
+                <div class="icone">✒️</div>
+                <h3>Le Renouveau poétique</h3>
+                <p>Étudier le cours et tester tes connaissances</p>
+            </div>
+
+            <div class="carte-theme" onclick="ouvrirTheme('travail')">
+                <div class="icone">💼</div>
+                <h3>Le Travail</h3>
+                <p>Étudier le cours et tester tes connaissances</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Page du thème -->
+    <main id="page-theme" class="cache">
+        <button class="btn-retour" onclick="retourAccueil()">← Retour</button>
+        <h2 id="titre-theme"></h2>
+
+        <div class="onglets">
+            <button class="onglet actif" onclick="afficherOnglet('cours')">📘 Cours</button>
+            <button class="onglet" onclick="afficherOnglet('quiz')">✅ Quiz</button>
+            <button class="onglet" onclick="afficherOnglet('citations')">💬 Citations</button>
+        </div>
+
+        <div id="contenu-cours" class="contenu"></div>
+        <div id="contenu-quiz" class="contenu cache"></div>
+        <div id="contenu-citations" class="contenu cache"></div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="data/renouveau-poetique.js"></script>
+    <script src="data/travail.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Enregistrement du Service Worker pour la PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker enregistré avec succès !');
+                    })
+                    .catch(error => {
+                        console.log('Erreur lors de l\'enregistrement du Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>
