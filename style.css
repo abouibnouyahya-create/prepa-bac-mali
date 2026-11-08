@@ -361,3 +361,67 @@ body.dark-mode .encadre-texte p[style*="font-style: italic"] {
     background-color: #2a2a2a;
     border-color: #444;
 }
+
+/* ===== FLASHCARDS ===== */
+.flashcard {
+    background-color: transparent;
+    width: 100%;
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard-front {
+    background-color: #0f8a3c;
+    color: white;
+}
+
+.flashcard-front small {
+    margin-top: 15px;
+    opacity: 0.8;
+    font-size: 0.8rem;
+}
+
+.flashcard-back {
+    background-color: #f5c518;
+    color: #222;
+    transform: rotateY(180deg);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Ajustement pour le mode sombre */
+body.dark-mode .flashcard-back {
+    background-color: #b08d10;
+    color: white;
+}

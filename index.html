@@ -54,15 +54,21 @@
         <button class="btn-retour" onclick="retourAccueil()">← Retour</button>
         <h2 id="titre-theme"></h2>
 
+        <!-- Les 5 Onglets -->
         <div class="onglets">
             <button class="onglet actif" onclick="afficherOnglet('cours')">📘 Cours</button>
             <button class="onglet" onclick="afficherOnglet('quiz')">✅ Quiz</button>
             <button class="onglet" onclick="afficherOnglet('citations')">💬 Citations</button>
+            <button class="onglet" onclick="afficherOnglet('methode')">📝 Méthode</button>
+            <button class="onglet" onclick="afficherOnglet('flashcards')">🃏 Flashcards</button>
         </div>
 
+        <!-- Les conteneurs de contenu -->
         <div id="contenu-cours" class="contenu"></div>
         <div id="contenu-quiz" class="contenu cache"></div>
         <div id="contenu-citations" class="contenu cache"></div>
+        <div id="contenu-methode" class="contenu cache"></div>
+        <div id="contenu-flashcards" class="contenu cache"></div>
     </main>
 
     <!-- Scripts -->

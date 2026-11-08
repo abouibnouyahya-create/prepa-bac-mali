@@ -7,6 +7,8 @@ let repondues = [];
 let timerInterval = null;
 let tempsRestant = 180;
 let nombreQuestionsActuelles = 10;
+let flashcardsData = [];
+let indexFlashcardActuel = 0;
 
 // ==================================================
 // 1. NAVIGATION ENTRE LES PAGES
@@ -45,6 +47,8 @@ function afficherOnglet(nom) {
     document.getElementById('contenu-cours').classList.add('cache');
     document.getElementById('contenu-quiz').classList.add('cache');
     document.getElementById('contenu-citations').classList.add('cache');
+    document.getElementById('contenu-methode').classList.add('cache');
+    document.getElementById('contenu-flashcards').classList.add('cache');
 
     if (timerInterval) clearInterval(timerInterval);
 
@@ -59,6 +63,14 @@ function afficherOnglet(nom) {
         boutons[2].classList.add('actif');
         document.getElementById('contenu-citations').classList.remove('cache');
         afficherCitations();
+    } else if (nom === 'methode') {
+        boutons[3].classList.add('actif');
+        document.getElementById('contenu-methode').classList.remove('cache');
+        afficherMethode();
+    } else if (nom === 'flashcards') {
+        boutons[4].classList.add('actif');
+        document.getElementById('contenu-flashcards').classList.remove('cache');
+        afficherFlashcards();
     }
 }
 
@@ -78,7 +90,7 @@ function afficherCours(leCours) {
 }
 
 // ==================================================
-// 3. AFFICHER LES CITATIONS (Mis à jour)
+// 3. AFFICHER LES CITATIONS
 // ==================================================
 function afficherCitations() {
     const container = document.getElementById('contenu-citations');
@@ -118,7 +130,104 @@ function afficherCitations() {
 }
 
 // ==================================================
-// 4. AFFICHER LE RECORD À L'ACCUEIL
+// 4. AFFICHER LA MÉTHODE
+// ==================================================
+function afficherMethode() {
+    const container = document.getElementById('contenu-methode');
+
+    let html = `
+    <h3>📝 Fiches de méthode pour le Bac</h3>
+    <p>Voici les étapes clés pour réussir tes épreuves écrites.</p>
+
+    <div class="encadre-texte">
+      <h4>1. La Dissertation littéraire</h4>
+      <p><strong>Étape 1 : L'analyse du sujet.</strong> Repère les mots-clés, la problématique et le type de sujet (citation, question directe).</p>
+      <p><strong>Étape 2 : Le plan.</strong> Généralement en 3 parties (Thèse, Antithèse, Synthèse) ou 2 parties (Constat, Analyse). Chaque partie doit contenir 2 ou 3 sous-parties avec des exemples (références aux œuvres).</p>
+      <p><strong>Étape 3 : L'introduction.</strong> Amorce, présentation du sujet, problématique, annonce du plan.</p>
+      <p><strong>Étape 4 : La conclusion.</strong> Bilan, réponse à la problématique, ouverture.</p>
+    </div>
+
+    <div class="encadre-texte">
+      <h4>2. Le Commentaire Composé</h4>
+      <p><strong>Étape 1 : Lecture attentive.</strong> Note tes impressions, le thème, le registre, la forme du texte (vers/prose).</p>
+      <p><strong>Étape 2 : La problématique.</strong> Définis l'angle d'attaque (ex: "Comment l'auteur exprime-t-il la révolte ?").</p>
+      <p><strong>Étape 3 : Le plan.</strong> 2 ou 3 axes de lecture (ex: Axe 1 : La description de la misère, Axe 2 : L'appel à la révolte). Appuie chaque argument avec une citation précise du texte et un procédé d'écriture.</p>
+      <p><strong>Étape 4 : L'introduction et la conclusion.</strong> Les mêmes règles que pour la dissertation.</p>
+    </div>
+  `;
+    container.innerHTML = html;
+}
+
+// ==================================================
+// 5. AFFICHER LES FLASHCARDS
+// ==================================================
+function afficherFlashcards() {
+    const container = document.getElementById('contenu-flashcards');
+
+    if (themeActif === 'travail') {
+        flashcardsData = [
+            { recto: "Auteur de 'Melancholia'", verso: "Victor Hugo" },
+            { recto: "Auteur de 'Germinal'", verso: "Émile Zola" },
+            { recto: "Auteur ivoirien de 'Climbié'", verso: "Bernard Dadié" },
+            { recto: "Auteur du 'Laboureur et ses Enfants'", verso: "Jean de La Fontaine" },
+            { recto: "Étymologie du mot travail", verso: "Tripalium (instrument de torture)" }
+        ];
+    } else {
+        flashcardsData = [
+            { recto: "Auteur de 'Alcools'", verso: "Guillaume Apollinaire" },
+            { recto: "Auteur de 'La Prose du Transsibérien'", verso: "Blaise Cendrars" },
+            { recto: "Qu'est-ce qu'un calligramme ?", verso: "Un poème en forme de dessin" },
+            { recto: "Mouvement dont Apollinaire est le précurseur", verso: "Le Surréalisme" },
+            { recto: "Refrain du 'Pont Mirabeau'", verso: "Vienne la nuit sonne l'heure / Les jours s'en vont je demeure" }
+        ];
+    }
+
+    indexFlashcardActuel = 0;
+    afficherCarteActuelle();
+}
+
+function afficherCarteActuelle() {
+    const container = document.getElementById('contenu-flashcards');
+    const carte = flashcardsData[indexFlashcardActuel];
+
+    let html = `<h3>🃏 Flashcards : Mémorise l'essentiel</h3>`;
+    html += `<p style="text-align:center; margin-bottom: 20px;">Carte ${indexFlashcardActuel + 1} sur ${flashcardsData.length}</p>`;
+
+    html += `<div class="flashcard" onclick="retournerCarte(this)">
+             <div class="flashcard-inner">
+               <div class="flashcard-front"><p>${carte.recto}</p><small>(Clique pour voir la réponse)</small></div>
+               <div class="flashcard-back"><p>${carte.verso}</p></div>
+             </div>
+           </div>`;
+
+    html += `<div style="display: flex; justify-content: space-between; margin-top: 20px;">
+             <button class="btn-retour" onclick="cartePrecedente()">← Précédent</button>
+             <button class="btn-retour" onclick="carteSuivante()">Suivant →</button>
+           </div>`;
+
+    container.innerHTML = html;
+}
+
+function retournerCarte(element) {
+    element.classList.toggle('flipped');
+}
+
+function carteSuivante() {
+    if (indexFlashcardActuel < flashcardsData.length - 1) {
+        indexFlashcardActuel++;
+        afficherCarteActuelle();
+    }
+}
+
+function cartePrecedente() {
+    if (indexFlashcardActuel > 0) {
+        indexFlashcardActuel--;
+        afficherCarteActuelle();
+    }
+}
+
+// ==================================================
+// 6. AFFICHER LE RECORD À L'ACCUEIL
 // ==================================================
 function afficherRecordAccueil() {
     let meilleurScore = localStorage.getItem('meilleurScorePrepaBac');
@@ -130,7 +239,7 @@ function afficherRecordAccueil() {
 }
 
 // ==================================================
-// 5. BANQUE DE QUESTIONS : RENOUVEAU POÉTIQUE
+// 7. BANQUE DE QUESTIONS : RENOUVEAU POÉTIQUE
 // ==================================================
 const questionsPoesie = [
     {
@@ -316,7 +425,7 @@ const questionsPoesie = [
 ];
 
 // ==================================================
-// 6. BANQUE DE QUESTIONS : LE TRAVAIL
+// 8. BANQUE DE QUESTIONS : LE TRAVAIL
 // ==================================================
 const questionsTravail = [
     {
@@ -372,7 +481,7 @@ const questionsTravail = [
 ];
 
 // ==================================================
-// 7. LOGIQUE DU QUIZ (MÉLANGE ET CHRONO)
+// 9. LOGIQUE DU QUIZ
 // ==================================================
 function melangerTableau(tableau) {
     for (let i = tableau.length - 1; i > 0; i--) {
@@ -521,7 +630,7 @@ function verifierReponse(indexQ, estBonneReponse, bouton) {
 }
 
 // ==================================================
-// 8. MODE SOMBRE
+// 10. MODE SOMBRE
 // ==================================================
 function toggleModeSombre() {
     document.body.classList.toggle('dark-mode');
@@ -536,7 +645,6 @@ function toggleModeSombre() {
     }
 }
 
-// Au chargement, on vérifie le mode sombre
 window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('modeSombre') === 'actif') {
         document.body.classList.add('dark-mode');
@@ -545,7 +653,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Afficher le record au démarrage
 window.onload = function () {
     afficherRecordAccueil();
 };
